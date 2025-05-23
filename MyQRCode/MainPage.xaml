@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             x:Class="MyQRCode.MainPage">  
+
+    <ScrollView>  
+        <VerticalStackLayout  
+            Padding="30,0"  
+            Spacing="25">  
+
+            <Entry  
+                x:Name="inputEntry"  
+                Placeholder="Enter text for QR code"  
+                HorizontalOptions="Fill" />  
+
+            <Button  
+                Text="Generate QR"  
+                Clicked="OnGenerateQrClicked"  
+                HorizontalOptions="Fill" />  
+
+            <Image  
+                x:Name="imageQRCode"  
+                HeightRequest="185"  
+                Aspect="AspectFit"  
+                SemanticProperties.Description="QR code image" />  
+
+            <Button  
+                Text="Scan QR Code"  
+                Clicked="OnScanQrClicked"  
+                HorizontalOptions="Fill" />  
+
+            <zxing:CameraBarcodeReaderView  
+                x:Name="qrScanner"  
+                IsDetecting="False"  
+                IsVisible="False"  
+                BarcodesDetected="OnBarcodeDetected"
+                HeightRequest="300"  
+                WidthRequest="300" />  
+
+            <Label  
+                x:Name="scanResultLabel"  
+                Text="Scan result will appear here"  
+                HorizontalOptions="Center" />  
+
+        </VerticalStackLayout>  
+    </ScrollView>  
+
+</ContentPage>

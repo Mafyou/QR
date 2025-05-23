@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/bin/Debug/net9.0-windows10.0.19041.0/win10-x64
+/obj
+/obj/Debug/net9.0-android/android/src/androidx/activity/ktx/R.java
