@@ -54,7 +54,7 @@ public partial class MainPage : ContentPage
 
     private void OnBarcodeDetected(object sender, BarcodeDetectionEventArgs e)
     {
-        if (e.Results.Count() > 0)
+        if (e.Results.Length > 0)
         {
             var result = e.Results[0].Value;
             MainThread.BeginInvokeOnMainThread(() =>

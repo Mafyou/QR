@@ -1,0 +1,42 @@
+﻿@page "/"
+@inject IJSRuntime JS
+
+<PageTitle>Home</PageTitle>
+
+<h1>QR Code Scanner</h1>
+
+<div id="reader" style="width:300px"></div>
+<p>@qrResult</p>
+<button @onclick="StartScan">Start Scan</button>
+
+<hr />
+
+<h2>QR Code Generator</h2>
+<EditForm Model="@this" OnValidSubmit="GenerateQrCode">
+    <InputText @bind-Value="qrInput" placeholder="Enter text to encode" />
+    <button type="submit">Generate QR</button>
+</EditForm>
+<div id="qrcode"></div>
+
+@code {
+    private string qrResult;
+    private string qrInput;
+
+    [JSInvokable]
+    public void OnQrCodeScanned(string result)
+    {
+        qrResult = result;
+        StateHasChanged();
+    }
+
+    private async Task StartScan()
+    {
+        var dotNetRef = DotNetObjectReference.Create(this);
+        await JS.InvokeVoidAsync("qrScanner.start", "reader", dotNetRef);
+    }
+
+    private async Task GenerateQrCode()
+    {
+        await JS.InvokeVoidAsync("qrCodeGenerator.generate", "qrcode", qrInput ?? "");
+    }
+}
