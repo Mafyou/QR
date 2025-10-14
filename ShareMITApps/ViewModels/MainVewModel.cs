@@ -20,7 +20,7 @@ public partial class MainVewModel : ObservableObject
     public MainVewModel(IThemeService themeService)
     {
         _themeService = themeService;
-        
+
         Apps = new(new InitMITApps().MyMITApps);
         GroupedApps = new ObservableCollection<MITAppGroup>(
             Apps
@@ -31,7 +31,9 @@ public partial class MainVewModel : ObservableObject
 
         InitializeTheme();
     }
-
+    [RelayCommand]
+    private void OnOpenWebsite()
+        => Browser.Default.OpenAsync("https://MafyouIT.tech", BrowserLaunchMode.SystemPreferred);
     [RelayCommand]
     private void OnToggleExpander()
         => IsExpanded = !IsExpanded;
@@ -41,7 +43,7 @@ public partial class MainVewModel : ObservableObject
     {
         var newTheme = IsDarkTheme ? AppTheme.Light : AppTheme.Dark;
         await _themeService.SetThemeAsync(newTheme);
-        
+
         IsDarkTheme = newTheme == AppTheme.Dark;
         ThemeIcon = IsDarkTheme ? "🌙" : "☀️";
     }

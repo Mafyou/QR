@@ -46,7 +46,11 @@
                            FontSize="32" 
                            HorizontalOptions="Center" />
                     <Label Text="Mafyou IT" 
-                           Style="{StaticResource HeaderStyle}" />
+                           Style="{StaticResource HeaderStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenWebsiteCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
                     <Label Text="IT pour Innovation &amp; Transformation" 
                            FontSize="14" 
                            TextColor="{AppThemeBinding Light=White, Dark=White}" 
@@ -174,45 +178,26 @@
                                                        HorizontalTextAlignment="Center" />
 
                                                 <!-- QR Code Image -->
-                                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource MITSurfaceColor}, Dark={StaticResource MITSurfaceColorDark}}" 
+                                            <Border BackgroundColor="{AppThemeBinding Light={StaticResource MITSurfaceColor}, Dark={StaticResource MITSurfaceColorDark}}" 
                                                         StrokeShape="RoundRectangle 12" 
                                                         Padding="16"
                                                         HorizontalOptions="Center">
-                                                    <Border.Shadow>
-                                                        <Shadow Brush="{AppThemeBinding Light={StaticResource MITShadowColor}, Dark={StaticResource MITShadowColorDark}}"
+                                                <Border.Shadow>
+                                                    <Shadow Brush="{AppThemeBinding Light={StaticResource MITShadowColor}, Dark={StaticResource MITShadowColorDark}}"
                                                                 Offset="0,2"
                                                                 Radius="8"
                                                                 Opacity="0.15" />
-                                                    </Border.Shadow>
-                                                    
-                                                    <ImageButton Source="{Binding MyQRImageSource}"
+                                                </Border.Shadow>
+
+                                                <ImageButton Source="{Binding MyQRImageSource}"
                                                                  Command="{Binding OpenAppLinkCommand}"
                                                                  CommandParameter="{Binding AppLink}"
                                                                  Aspect="AspectFit"
+                                                                 Padding="16"
                                                                  WidthRequest="280"
                                                                  HeightRequest="280" />
-                                                </Border>
-
-                                                <!-- Action Button --><!--
-                                                <Button Text="🚀 Ouvrir dans le Store" 
-                                                        Command="{Binding OpenAppLinkCommand}"
-                                                        CommandParameter="{Binding AppLink}"
-                                                        BackgroundColor="{AppThemeBinding Light={StaticResource MITPrimaryColor}, Dark={StaticResource MITPrimaryColorDark}}"
-                                                        TextColor="White"
-                                                        FontSize="16"
-                                                        FontAttributes="Bold"
-                                                        CornerRadius="12"
-                                                        Padding="20,12"
-                                                        HorizontalOptions="Center"
-                                                        MinimumWidthRequest="200">
-                                                    <Button.Shadow>
-                                                        <Shadow Brush="{AppThemeBinding Light={StaticResource MITPrimaryColor}, Dark={StaticResource MITPrimaryColorDark}}"
-                                                                Offset="0,4"
-                                                                Radius="12"
-                                                                Opacity="0.3" />
-                                                    </Button.Shadow>
-                                                </Button>-->
-                                            </VerticalStackLayout>
+                                            </Border>
+                                        </VerticalStackLayout>
                                         </Border>
                                     </toolkit:Expander>
                                 </VerticalStackLayout>
