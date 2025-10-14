@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Maui;
-using ShareMITApps.ViewModels;
+﻿using ShareMITApps.Services;
 
 namespace ShareMITApps;
 
@@ -16,10 +15,11 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
+        // Register services
+        builder.Services.AddSingleton<IThemeService, ThemeService>();
+        
+        // Register pages and view models
         builder.Services.AddTransientWithShellRoute<MainPage, MainVewModel>(nameof(MainPage));
-#if DEBUG
-        builder.Logging.AddDebug();
-#endif
 
         return builder.Build();
     }

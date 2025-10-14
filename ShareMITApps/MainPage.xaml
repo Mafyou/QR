@@ -5,90 +5,221 @@
              xmlns:models="clr-namespace:ShareMITApps.Models"
              xmlns:vm="clr-namespace:ShareMITApps.ViewModels"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:converters="clr-namespace:ShareMITApps.Converters"
              Shell.NavBarIsVisible="False"
              x:DataType="vm:MainVewModel"
-             x:Class="ShareMITApps.MainPage">
-    <ScrollView>
-        <VerticalStackLayout Padding="10" Spacing="10">
-            <Label HorizontalOptions="Center"  Text="Mafyou Innovation Transformation" FontSize="20" />
-            <CollectionView ItemsSource="{Binding Apps}">
-                <!-- Single-column layout -->
+             x:Class="ShareMITApps.MainPage"
+             BackgroundColor="{AppThemeBinding Light={StaticResource MITBackgroundColor}, Dark={StaticResource MITBackgroundColorDark}}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Converters -->
+            <converters:BoolToRotationConverter x:Key="BoolToRotationConverter" />
+            <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header Section with Gradient -->
+        <Border Grid.Row="0" 
+                Background="{StaticResource HeaderGradient}"
+                StrokeShape="RoundRectangle 0,0,24,24"
+                Padding="20,40,20,20"
+                Margin="0,0,0,10">
+            <Grid>
+                <!-- Theme Toggle Button -->
+                <Button Text="{Binding ThemeIcon}"
+                        Style="{StaticResource ThemeToggleButton}"
+                        Command="{Binding ToggleThemeCommand}"
+                        HorizontalOptions="End"
+                        VerticalOptions="Start" />
+
+                <!-- Header Content -->
+                <VerticalStackLayout Spacing="8" 
+                                     VerticalOptions="Center">
+                    <Label Text="🚀" 
+                           FontSize="32" 
+                           HorizontalOptions="Center" />
+                    <Label Text="Mafyou IT" 
+                           Style="{StaticResource HeaderStyle}" />
+                    <Label Text="IT pour Innovation &amp; Transformation" 
+                           FontSize="14" 
+                           TextColor="{AppThemeBinding Light=White, Dark=White}" 
+                           Opacity="0.8" 
+                           HorizontalOptions="Center" 
+                           Margin="0,8,0,0" />
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+
+        <!-- Content Section -->
+        <ScrollView Grid.Row="1">
+            <CollectionView ItemsSource="{Binding GroupedApps}" 
+                            IsGrouped="True"
+                            BackgroundColor="Transparent"
+                            Margin="0,0,0,20">
+                
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="4" />
                 </CollectionView.ItemsLayout>
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:MITApp">
-                        <!-- Main container -->
-                        <Border
-                            Stroke="LightGray"
-                            StrokeThickness="1"
-                            StrokeShape="RoundRectangle 12"
-                            BackgroundColor="Black"
-                            Padding="0"
-                            Margin="0,0,0,10">
+                    <!-- Category Header Template -->
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate x:DataType="models:MITAppGroup">
+                            <Border BackgroundColor="Transparent" Padding="0">
+                                <Grid>
+                                    <BoxView BackgroundColor="{AppThemeBinding Light={StaticResource MITPrimaryColor}, Dark={StaticResource MITPrimaryColorDark}}" 
+                                             Opacity="0.1" 
+                                             CornerRadius="8" 
+                                             Margin="20,15,20,5" />
+                                    <Label Text="{Binding CategoryName}" 
+                                           Style="{StaticResource CategoryHeaderStyle}">
+                                        <Label.Shadow>
+                                            <Shadow Brush="{AppThemeBinding Light={StaticResource MITShadowColor}, Dark={StaticResource MITShadowColorDark}}"
+                                                    Offset="0,1"
+                                                    Radius="2"
+                                                    Opacity="0.3" />
+                                        </Label.Shadow>
+                                    </Label>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
 
-                            <!-- Logo + Name (clickable to expand) -->
-                            <VerticalStackLayout>
-                                <Border
-                                Stroke="Black"
-                                Padding="10"
-                                BackgroundColor="Transparent">
-                                    <VerticalStackLayout Spacing="5" BackgroundColor="Black">
-                                        <Image
-                                            Source="{Binding ImageUrl}"
-                                            WidthRequest="80"
-                                            HeightRequest="80"
-                                            Aspect="AspectFill"
-                                            HorizontalOptions="Center">
-                                            <Image.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding ToggleExpanderCommand}" />
-                                            </Image.GestureRecognizers>
-                                        </Image>
-                                        <Label
-                                            Text="{Binding Name}"
-                                            FontAttributes="Bold"
-                                            FontSize="16"
-                                            HorizontalOptions="Center">
-                                            <Label.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding ToggleExpanderCommand}" />
-                                            </Label.GestureRecognizers>
-                                        </Label>
-                                    </VerticalStackLayout>
-                                </Border>
+                    <!-- App Item Template -->
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:MITApp">
+                            <Border Style="{StaticResource CardStyle}">
+                                <Border.Triggers>
+                                    <DataTrigger TargetType="Border" 
+                                                 Binding="{Binding IsExpanded}" 
+                                                 Value="True">
+                                        <Setter Property="Background" Value="{StaticResource CardGradient}" />
+                                    </DataTrigger>
+                                </Border.Triggers>
 
-                                <!-- Expander for QR Code -->
-                                <toolkit:Expander x:Name="MyExpander"
-                                              IsExpanded="{Binding IsExpanded}"
-                                              Direction="Down">
-                                    <toolkit:Expander.Header>
-                                        <!-- Empty header (we use the logo/name as the trigger) -->
-                                        <Label Text="" HeightRequest="0" />
-                                    </toolkit:Expander.Header>
+                                <VerticalStackLayout>
+                                    <!-- App Header (Clickable) -->
+                                    <Border BackgroundColor="Transparent" 
+                                            Padding="20,20,20,15">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ToggleExpanderCommand}" />
+                                        </Border.GestureRecognizers>
 
-                                    <!-- Full-width QR Code -->
-                                    <Border
-                                        Stroke="LightGray"
-                                        StrokeThickness="1"
-                                        StrokeShape="RoundRectangle 12"
-                                        BackgroundColor="White"
-                                        Padding="20"
-                                        Margin="10,0,10,10">
-                                    <Image
-                                        Source="{Binding MyQRImageSource}"
-                                        Aspect="AspectFit"
-                                        HorizontalOptions="Fill"
-                                        VerticalOptions="Fill"
-                                        MinimumHeightRequest="300" />
+                                        <Grid ColumnDefinitions="Auto,*,Auto" 
+                                              ColumnSpacing="16">
+                                            
+                                            <!-- App Icon -->
+                                            <Border Grid.Column="0" 
+                                                    BackgroundColor="{AppThemeBinding Light=#EDF2EB, Dark=#2A2A2A}" 
+                                                    StrokeShape="RoundRectangle 12"
+                                                    Padding="8"
+                                                    WidthRequest="72"
+                                                    HeightRequest="72">
+                                                <Image Source="{Binding ImageUrl}"
+                                                       Aspect="AspectFit" />
+                                            </Border>
+                                            
+                                            <!-- App Info -->
+                                            <VerticalStackLayout Grid.Column="1" 
+                                                                 VerticalOptions="Center" 
+                                                                 Spacing="4">
+                                                <Label Text="{Binding Name}" 
+                                                       Style="{StaticResource AppNameStyle}" 
+                                                       HorizontalOptions="Start" />
+                                                <Label Text="Touchez pour voir le QR Code" 
+                                                       FontSize="12" 
+                                                       TextColor="{AppThemeBinding Light={StaticResource MITTextSecondaryColor}, Dark={StaticResource MITTextSecondaryColorDark}}" 
+                                                       Opacity="{Binding IsExpanded, Converter={StaticResource InvertedBoolConverter}}" />
+                                                <Label Text="QR Code affiché - Touchez le code pour ouvrir l'app" 
+                                                       FontSize="12" 
+                                                       TextColor="{AppThemeBinding Light={StaticResource MITAccentColor}, Dark={StaticResource MITAccentColorDark}}" 
+                                                       IsVisible="{Binding IsExpanded}" />
+                                            </VerticalStackLayout>
+                                            
+                                            <!-- Expand Icon -->
+                                            <Label Grid.Column="2" 
+                                                   Text="▼" 
+                                                   FontSize="16" 
+                                                   TextColor="{AppThemeBinding Light={StaticResource MITPrimaryColor}, Dark={StaticResource MITPrimaryColorDark}}" 
+                                                   VerticalOptions="Center" 
+                                                   Rotation="{Binding IsExpanded, Converter={StaticResource BoolToRotationConverter}}" />
+                                        </Grid>
                                     </Border>
-                                </toolkit:Expander>
-                            </VerticalStackLayout>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
+
+                                    <!-- QR Code Expander -->
+                                    <toolkit:Expander IsExpanded="{Binding IsExpanded}" 
+                                                      Direction="Down">
+                                        <toolkit:Expander.Header>
+                                            <BoxView HeightRequest="0" 
+                                                     BackgroundColor="Transparent" />
+                                        </toolkit:Expander.Header>
+
+                                        <!-- QR Code Container -->
+                                        <Border BackgroundColor="{AppThemeBinding Light=#F5F6F7, Dark=#1F1F1F}" 
+                                                StrokeShape="RoundRectangle 16" 
+                                                Padding="24" 
+                                                Margin="20,20,20,20">
+                                            <VerticalStackLayout Spacing="16">
+                                                <!-- QR Code Title -->
+                                                <Label Text="Scanner ce code QR pour télécharger l'application" 
+                                                       FontSize="14" 
+                                                       TextColor="{AppThemeBinding Light={StaticResource MITTextSecondaryColor}, Dark={StaticResource MITTextSecondaryColorDark}}" 
+                                                       HorizontalOptions="Center" 
+                                                       HorizontalTextAlignment="Center" />
+
+                                                <!-- QR Code Image -->
+                                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource MITSurfaceColor}, Dark={StaticResource MITSurfaceColorDark}}" 
+                                                        StrokeShape="RoundRectangle 12" 
+                                                        Padding="16"
+                                                        HorizontalOptions="Center">
+                                                    <Border.Shadow>
+                                                        <Shadow Brush="{AppThemeBinding Light={StaticResource MITShadowColor}, Dark={StaticResource MITShadowColorDark}}"
+                                                                Offset="0,2"
+                                                                Radius="8"
+                                                                Opacity="0.15" />
+                                                    </Border.Shadow>
+                                                    
+                                                    <ImageButton Source="{Binding MyQRImageSource}"
+                                                                 Command="{Binding OpenAppLinkCommand}"
+                                                                 CommandParameter="{Binding AppLink}"
+                                                                 Aspect="AspectFit"
+                                                                 WidthRequest="280"
+                                                                 HeightRequest="280" />
+                                                </Border>
+
+                                                <!-- Action Button --><!--
+                                                <Button Text="🚀 Ouvrir dans le Store" 
+                                                        Command="{Binding OpenAppLinkCommand}"
+                                                        CommandParameter="{Binding AppLink}"
+                                                        BackgroundColor="{AppThemeBinding Light={StaticResource MITPrimaryColor}, Dark={StaticResource MITPrimaryColorDark}}"
+                                                        TextColor="White"
+                                                        FontSize="16"
+                                                        FontAttributes="Bold"
+                                                        CornerRadius="12"
+                                                        Padding="20,12"
+                                                        HorizontalOptions="Center"
+                                                        MinimumWidthRequest="200">
+                                                    <Button.Shadow>
+                                                        <Shadow Brush="{AppThemeBinding Light={StaticResource MITPrimaryColor}, Dark={StaticResource MITPrimaryColorDark}}"
+                                                                Offset="0,4"
+                                                                Radius="12"
+                                                                Opacity="0.3" />
+                                                    </Button.Shadow>
+                                                </Button>-->
+                                            </VerticalStackLayout>
+                                        </Border>
+                                    </toolkit:Expander>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
             </CollectionView>
-        </VerticalStackLayout>
-    </ScrollView>
-
-
+        </ScrollView>
+    </Grid>
 </ContentPage>

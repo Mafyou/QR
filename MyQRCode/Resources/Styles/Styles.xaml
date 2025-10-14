@@ -448,4 +448,64 @@
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
 
+    <!-- MIT Apps Custom Styles -->
+    <Style x:Key="HeaderStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="OpenSansRegular" />
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="CategoryHeaderStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="OpenSansRegular" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
+        <Setter Property="Margin" Value="20,25,20,10" />
+    </Style>
+
+    <Style x:Key="AppNameStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="OpenSansSemibold" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontAttributes" Value="None" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="LineBreakMode" Value="TailTruncation" />
+        <Setter Property="MaxLines" Value="2" />
+    </Style>
+
+    <Style x:Key="CardStyle" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource CardBackgroundColor}" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 16" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="20,8,20,8" />
+        <Setter Property="Shadow">
+            <Shadow Brush="{StaticResource ShadowColor}"
+                    Offset="0,4"
+                    Radius="12"
+                    Opacity="0.1" />
+        </Setter>
+    </Style>
+
+    <!-- Theme Switcher Button Style -->
+    <Style x:Key="ThemeToggleButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="WidthRequest" Value="50" />
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="CornerRadius" Value="25" />
+        <Setter Property="BorderWidth" Value="2" />
+        <Setter Property="BorderColor" Value="White" />
+        <Setter Property="Shadow">
+            <Shadow Brush="Black"
+                    Offset="0,2"
+                    Radius="8"
+                    Opacity="0.3" />
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

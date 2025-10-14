@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
 
+    <!-- Original MAUI Colors -->
     <Color x:Key="Primary">#512BD4</Color>
     <Color x:Key="PrimaryDark">#ac99ea</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>
@@ -27,6 +29,54 @@
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
 
+    <!-- MIT APPS THEME - Aligne avec mafyouit.tech -->
+    <!-- Couleur principale #657b5e pour les deux themes -->
+    
+    <!-- LIGHT THEME -->
+    <Color x:Key="MITPrimaryColor">#657b5e</Color>        <!-- Couleur officielle mafyouit.tech -->
+    <Color x:Key="MITSecondaryColor">#7d9174</Color>      <!-- Vert secondaire harmonieux -->
+    <Color x:Key="MITAccentColor">#4a6641</Color>         <!-- Vert accent plus fonce -->
+    <Color x:Key="MITBackgroundColor">#FAFAFA</Color>     <!-- Gris tres clair -->
+    <Color x:Key="MITCardBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="MITTextPrimaryColor">#1A1A1A</Color>    <!-- Texte noir contraste -->
+    <Color x:Key="MITTextSecondaryColor">#4A4A4A</Color>  <!-- Texte secondaire gris fonce -->
+    <Color x:Key="MITSurfaceColor">#FFFFFF</Color>
+    <Color x:Key="MITShadowColor">#26000000</Color>
+    
+    <!-- DARK THEME - Meme vert #657b5e sur fond noir -->
+    <Color x:Key="MITBackgroundColorDark">#000000</Color>     <!-- Noir pur -->
+    <Color x:Key="MITCardBackgroundColorDark">#0F0F0F</Color> <!-- Cartes gris tres fonce -->
+    <Color x:Key="MITPrimaryColorDark">#657b5e</Color>        <!-- MEME couleur verte que le site -->
+    <Color x:Key="MITSecondaryColorDark">#7d9174</Color>      <!-- Vert secondaire identique -->
+    <Color x:Key="MITAccentColorDark">#8FA584</Color>         <!-- Vert accent plus clair pour contraste sur noir -->
+    <Color x:Key="MITTextPrimaryColorDark">#FFFFFF</Color>    <!-- Blanc pur -->
+    <Color x:Key="MITTextSecondaryColorDark">#CCCCCC</Color>  <!-- Gris clair -->
+    <Color x:Key="MITSurfaceColorDark">#1A1A1A</Color>       <!-- Surface grise -->
+    <Color x:Key="MITShadowColorDark">#4DFFFFFF</Color>      <!-- Ombre blanche -->
+
+    <!-- Theme-aware Color Resources -->
+    <Color x:Key="PrimaryColor">#657b5e</Color>          <!-- Couleur verte par defaut -->
+    <Color x:Key="SecondaryColor">#7d9174</Color>
+    <Color x:Key="AccentColor">#4a6641</Color>
+    <Color x:Key="BackgroundColor">#FAFAFA</Color>
+    <Color x:Key="CardBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="TextPrimaryColor">#1A1A1A</Color>
+    <Color x:Key="TextSecondaryColor">#4A4A4A</Color>
+    <Color x:Key="SurfaceColor">#FFFFFF</Color>
+    <Color x:Key="ShadowColor">#26000000</Color>
+
+    <!-- Gradient Resources -->
+    <LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{AppThemeBinding Light={StaticResource MITPrimaryColor}, Dark={StaticResource MITPrimaryColorDark}}" Offset="0.0" />
+        <GradientStop Color="{AppThemeBinding Light={StaticResource MITSecondaryColor}, Dark={StaticResource MITSecondaryColorDark}}" Offset="1.0" />
+    </LinearGradientBrush>
+    
+    <LinearGradientBrush x:Key="CardGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{AppThemeBinding Light={StaticResource MITCardBackgroundColor}, Dark={StaticResource MITCardBackgroundColorDark}}" Offset="0.0" />
+        <GradientStop Color="{AppThemeBinding Light=#F5F6F7, Dark=#1F1F1F}" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <!-- Original Brushes -->
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>

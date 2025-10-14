@@ -1,3 +1,10 @@
-﻿global using Microsoft.Extensions.Logging;
+﻿global using CommunityToolkit.Maui;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;
+global using QRCoder;
 global using ShareMITApps.Data;
+global using ShareMITApps.Helpers;
 global using ShareMITApps.Models;
+global using ShareMITApps.ViewModels;
+global using System.Collections.ObjectModel;
+global using System.Windows.Input;
