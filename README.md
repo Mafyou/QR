@@ -1,7 +1,7 @@
 ﻿# MyQRCode
 
 Ce dépôt contient deux projets principaux :
-- **MyQRCode.Web** : Application Blazor WebAssembly (.NET 10) pour la génération de QR codes.
+- **MyQRCode.Web** : Application Blazor WebAssembly (.NET 8 (pour les static web app dotnet 9 ou 10 n'est pas supporté)) pour la génération de QR codes.
 - **MyQRCode** : Application .NET MAUI multi-plateforme (Android, iOS, MacCatalyst, Windows) pour la génération et la lecture de QR codes.
 
 ---
@@ -12,7 +12,7 @@ Application web permettant de générer des QR codes.
 
 ### Démarrage local
 
-1. Installez le SDK .NET 10 : https://dotnet.microsoft.com/download/dotnet/10.0
+1. Installez le SDK .NET 8 : https://dotnet.microsoft.com/download/dotnet/8.0
 2. Ouvrez un terminal à la racine du projet.
 3. Lancez la commande suivante :
    ```sh
