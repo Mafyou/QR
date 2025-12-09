@@ -1,37 +1,84 @@
-# MyQRCode.Web
+ï»¿# MyQRCode
 
-Ce projet est une application Blazor WebAssembly (.NET 10) permettant de générer des QR codes.
+Ce dÃ©pÃ´t contient deux projets principauxÂ :
+- **MyQRCode.Web**Â : Application Blazor WebAssembly (.NET 10) pour la gÃ©nÃ©ration de QR codes.
+- **MyQRCode**Â : Application .NET MAUI multi-plateforme (Android, iOS, MacCatalyst, Windows) pour la gÃ©nÃ©ration et la lecture de QR codes.
 
-## Démarrage local
+---
+
+## 1. MyQRCode.Web (Blazor WebAssembly)
+
+Application web permettant de gÃ©nÃ©rer des QR codes.
+
+### DÃ©marrage local
 
 1. Installez le SDK .NET 10 : https://dotnet.microsoft.com/download/dotnet/10.0
-2. Ouvrez un terminal à la racine du projet.
-3. Lancez la commande suivante :
+2. Ouvrez un terminal Ã  la racine du projet.
+3. Lancez la commande suivanteÂ :
    ```sh
    dotnet run --project MyQRCode.Web/MyQRCode.Web.csproj
    ```
-4. Accédez à l’application via http://localhost:5000 ou l’URL indiquée dans le terminal.
+4. AccÃ©dez Ã  lâ€™application via http://localhost:5000 ou lâ€™URL indiquÃ©e dans le terminal.
 
-## Déploiement Azure Static Web Apps
+### DÃ©ploiement Azure Static Web Apps
 
-Le déploiement est automatisé via GitHub Actions :
+Le dÃ©ploiement est automatisÃ© via GitHub ActionsÂ :
 - Le workflow `.github/workflows/staticwebapp.yml` compile et publie le projet Blazor WebAssembly sur Azure Static Web Apps.
-- Les paramètres principaux sont :
+- Les paramÃ¨tres principaux sontÂ :
   - `app_location`: `./MyQRCode.Web` (chemin du projet Blazor)
   - `output_location`: `wwwroot` (dossier de sortie du build)
 
-## Structure du projet
+---
+
+## 2. MyQRCode (MAUI)
+
+Application mobile et desktop multi-plateforme (.NET MAUI) pour gÃ©nÃ©rer et scanner des QR codes.
+
+### Plateformes supportÃ©es
+- Android
+- iOS
+- MacCatalyst
+- Windows
+
+### DÃ©marrage local
+
+1. Installez le SDK .NET 10 et les outils MAUIÂ : https://learn.microsoft.com/dotnet/maui/installation
+2. Ouvrez un terminal Ã  la racine du projet.
+3. Lancez la commande suivante pour la plateforme souhaitÃ©eÂ :
+   ```sh
+   # Android
+   dotnet build MyQRCode/MyQRCode.csproj -t:Run -f net10.0-android
+
+   # iOS (Mac requis)
+   dotnet build MyQRCode/MyQRCode.csproj -t:Run -f net10.0-ios
+
+   # MacCatalyst (Mac requis)
+   dotnet build MyQRCode/MyQRCode.csproj -t:Run -f net10.0-maccatalyst
+
+   # Windows
+   dotnet build MyQRCode/MyQRCode.csproj -t:Run -f net10.0-windows10.0.19041.0
+   ```
+
+### FonctionnalitÃ©s
+- GÃ©nÃ©ration de QR codes (QRCoder)
+- Scan de QR codes (ZXing.Net.Maui)
+
+### DÃ©pendances principales
+- `QRCoder` (gÃ©nÃ©ration de QR codes)
+- `ZXing.Net.Maui` (scan de QR codes)
+
+---
+
+## Structure du dÃ©pÃ´t
 
 - `MyQRCode.Web/` : Projet Blazor WebAssembly (.NET 10)
+- `MyQRCode/` : Projet .NET MAUI multi-plateforme
 - `.github/workflows/staticwebapp.yml` : Workflow CI/CD pour Azure Static Web Apps
 
-## Génération de QR Code
-
-La bibliothèque [QRCoder](https://github.com/codebude/QRCoder) est utilisée pour générer les QR codes.
-
-## Prérequis
+## PrÃ©requis
 - .NET 10 SDK
-- Compte Azure avec accès à Static Web Apps
+- Outils MAUI (pour le projet mobile/desktop)
+- Compte Azure avec accÃ¨s Ã  Static Web Apps (pour le dÃ©ploiement web)
 
-## Variables secrètes
-- Le token `AZURE_STATIC_WEB_APPS_API_TOKEN_ICY_STONE_0BB06C303` doit être défini dans les secrets du dépôt GitHub.
+## Variables secrÃ¨tes
+- Le token `AZURE_STATIC_WEB_APPS_API_TOKEN_ICY_STONE_0BB06C303` doit Ãªtre dÃ©fini dans les secrets du dÃ©pÃ´t GitHub.
