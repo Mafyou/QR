@@ -1,0 +1,21 @@
+<Solution>
+  <Folder Name="/Artefacts/">
+    <File Path=".github/copilot-instructions.md" />
+    <File Path=".github/workflows/staticgenerator.yml" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Fronts/">
+    <Project Path="src/MyQRCode.Web/MyQRCode.Web.csproj" />
+    <Project Path="src/MyQRCode/MyQRCode.csproj">
+      <Deploy Solution="Debug|*" />
+    </Project>
+  </Folder>
+  <Folder Name="/Logic/">
+    <Project Path="src/MyQRCode.Kernel/MyQRCode.Kernel.csproj" />
+    <Project Path="src/MyQRCode.Shared/MyQRCode.Shared.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="tests/MyCode.Kernel.UnitTests/MyCode.Kernel.UnitTests.csproj" />
+    <Project Path="tests/MyQRCode.Shared.UnitTests/MyQRCode.Shared.UnitTests.csproj" />
+  </Folder>
+</Solution>

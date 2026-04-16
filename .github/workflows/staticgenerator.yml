@@ -10,12 +10,40 @@ on:
       - master
 
 jobs:
+  test_job:
+    runs-on: ubuntu-latest
+    name: Test Job
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          lfs: false
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Run tests
+        run: dotnet test --no-restore --verbosity normal --collect:"XPlat Code Coverage"
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v5
+        if: success()
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+
   build_and_deploy_job:
+    needs: test_job
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: true
           lfs: false
@@ -28,8 +56,8 @@ jobs:
           action: "upload"
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "./MyQRCode.Web" # App source code path
-          api_location: "Api" # Api source code path - optional
+          app_location: "./src/MyQRCode.Web" # App source code path
+          api_location: "" # Api source code path - optional
           output_location: "wwwroot" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
 
