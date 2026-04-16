@@ -1,4 +1,4 @@
-# MyQRCode
+﻿# MyQRCode
 
 Ce depot contient les projets suivants :
 - **MyQRCode.Web** : Application Blazor WebAssembly (.NET 10) pour la generation de QR codes, deployee sur Azure Static Web Apps.
@@ -10,9 +10,9 @@ Ce depot contient les projets suivants :
 
 ## 1. MyQRCode.Web (Blazor WebAssembly)
 
-Application web permettant de g�n�rer et scanner des QR codes avec logo int�gr�.
+Application web permettant de générer et scanner des QR codes avec logo intégré.
 
-### D�marrage local
+### Démarrage local
 
 1. Installez le SDK .NET 10 : https://dotnet.microsoft.com/download/dotnet/10.0
 2. Ouvrez un terminal a la racine du projet.
@@ -70,14 +70,14 @@ Application mobile et desktop multi-plateforme (.NET MAUI) pour generer et scann
 
 ---
 
-## Structure du d�p�t
+## Structure du dépôt
 
 ```
 src/
-??? MyQRCode.Web/       # Projet Blazor WebAssembly (.NET 10)
-??? MyQRCode/           # Projet .NET MAUI multi-plateforme
-??? MyQRCode.Shared/    # Biblioth�que partag�e (service QR code)
-??? MyQRCode.Kernel/    # Biblioth�que partag�e (ViewModel, services)
+├── MyQRCode.Web/       # Projet Blazor WebAssembly (.NET 10)
+├── MyQRCode/           # Projet .NET MAUI multi-plateforme
+├── MyQRCode.Shared/    # Bibliothèque partagée (service QR code)
+└── MyQRCode.Kernel/    # Bibliothèque partagée (ViewModel, services)
 tests/
 +-- MyQRCode.Shared.UnitTests/   # Tests unitaires du service QR code
 +-- MyCode.Kernel.UnitTests/     # Tests unitaires du ViewModel
